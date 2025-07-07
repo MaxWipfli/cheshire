@@ -274,6 +274,50 @@ module cheshire_soc import cheshire_pkg::*; #(
     .default_mst_port_i     ( '0 )
   );
 
+  // always_ff @(posedge clk_i) begin
+  //   if (rst_ni) begin
+  //     for (int i = 0; i < AxiOut.num_out; i++) begin
+  //       if (axi_out_req[i].ar_valid && axi_out_rsp[i].ar_ready) begin
+  //         $display("[AXI OUT %2d] AR handshake @ %t (address 0x%x)", i, $time, axi_out_req[i].ar.addr);
+  //       end
+  //       if (axi_out_req[i].aw_valid && axi_out_rsp[i].aw_ready) begin
+  //         $display("[AXI OUT %2d] AW handshake @ %t (address 0x%x)", i, $time, axi_out_req[i].aw.addr);
+  //       end
+  //       if (axi_out_req[i].w_valid && axi_out_rsp[i].w_ready) begin
+  //         $display("[AXI OUT %2d] W  handshake @ %t", i, $time);
+  //       end
+  //       if (axi_out_rsp[i].r_valid && axi_out_req[i].r_ready) begin
+  //         $display("[AXI OUT %2d] R  handshake @ %t", i, $time);
+  //       end
+  //       if (axi_out_rsp[i].b_valid && axi_out_req[i].b_ready) begin
+  //         $display("[AXI OUT %2d] B  handshake @ %t", i, $time);
+  //       end
+  //     end
+  //   end
+  // end
+
+  // always_ff @(posedge clk_i) begin
+  //   if (rst_ni) begin
+  //     for (int i = 0; i < AxiIn.num_in; i++) begin
+  //       if (axi_in_req[i].ar_valid && axi_in_rsp[i].ar_ready) begin
+  //         $display("[AXI IN  %2d] AR handshake @ %t (address 0x%x)", i, $time, axi_in_req[i].ar.addr);
+  //       end
+  //       if (axi_in_req[i].aw_valid && axi_in_rsp[i].aw_ready) begin
+  //         $display("[AXI IN  %2d] AW handshake @ %t (address 0x%x)", i, $time, axi_in_req[i].aw.addr);
+  //       end
+  //       if (axi_in_req[i].w_valid && axi_in_rsp[i].w_ready) begin
+  //         $display("[AXI IN  %2d] W  handshake @ %t", i, $time);
+  //       end
+  //       if (axi_in_rsp[i].r_valid && axi_in_req[i].r_ready) begin
+  //         $display("[AXI IN  %2d] R  handshake @ %t", i, $time);
+  //       end
+  //       if (axi_in_rsp[i].b_valid && axi_in_req[i].b_ready) begin
+  //         $display("[AXI IN  %2d] B  handshake @ %t", i, $time);
+  //       end
+  //     end
+  //   end
+  // end
+
   // Connect external masters
   if (Cfg.AxiExtNumMst > 0) begin : gen_ext_axi_mst
     assign axi_in_req[AxiIn.num_in-1:AxiIn.ext_base] = axi_ext_mst_req_i;
