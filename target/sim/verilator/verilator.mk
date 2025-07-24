@@ -30,6 +30,7 @@ VERILATOR_ARGS += -DCVA6_NO_TRACE
 VERILATOR_ARGS += --threads $(CHS_VERILATOR_THREADS)
 # C++ Compiler Optimization
 VERILATOR_ARGS += -CFLAGS "-O3" -CFLAGS "-march=native" -CFLAGS "-mtune=native"
+VERILATOR_ARGS += -CFLAGS "-std=c++17" -LDFLAGS "-L$(DRAMSYS_ROOT)/build/lib -lDRAMSys_Simulator"
 # Use Clang (faster simulation than GCC)
 VERILATOR_ARGS += --compiler clang -MAKEFLAGS "CC=clang" -MAKEFLAGS "CXX=clang++" -MAKEFLAGS "LINK=clang++"
 
@@ -67,7 +68,7 @@ $(CHS_ROOT)/target/sim/verilator/obj_dir/Vcheshire_soc_wrapper: $(CHS_ROOT)/targ
 		-f $< $(VERILATOR_CXX_SRCS) $(VERILATOR_CONFIG) \
 		--cc --exe --build --top-module cheshire_soc_wrapper
 
-$(CHS_ROOT)/target/sim/verilator/cheshire_soc.vlt: $(CHS_ROOT)/target/sim/verilator/obj_dir/Vcheshire_soc_wrapper
+$(CHS_ROOT)/target/sim/verilator/cheshire_soc.vlt: chs-dramsys-all $(CHS_ROOT)/target/sim/verilator/obj_dir/Vcheshire_soc_wrapper
 	@echo "#!/bin/sh" > $@
 	@echo 'set -eu' >> $@
 	@echo 'cd $$(dirname "$$0")' >> $@
